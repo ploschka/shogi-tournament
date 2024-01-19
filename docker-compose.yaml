@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  # MySQL container
+  database:
+    image: mysql:8.0.31
+    container_name: mysql-database
+    env_file: db.env
+    volumes:
+      - db-data:/var/lib/mysql:rw
+    networks:
+      - app-network
+    ports:
+      - 3306:3306
+
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  db-data:

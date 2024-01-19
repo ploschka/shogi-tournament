@@ -1,0 +1,15 @@
+{% extends "base.jinja" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/styles/tournament_page.css">
+{% endblock style %}
+
+{% block content %}
+
+<h1>{{name}}</h1>
+<p>Город проведения: {{city}}</p>
+<p>Дата начала: {{start_date}}</p>
+<p>Дата окончания: {{end_date}}</p>
+
+<a class="search" href="{{ url_for('tournament_add_get')}}">Добавить турнир</a>
+{% endblock content %}

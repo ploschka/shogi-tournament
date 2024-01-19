@@ -1,0 +1,9 @@
+.tournament-item
+{
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    border: solid thin black;
+    width: 20%;
+    height: 20px;
+}

@@ -1,0 +1,30 @@
+{% extends "base.jinja" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/styles/player_add.css">
+{% endblock style %}
+
+{% block content %}
+
+<form action="{{ url_for('player_add_post') }}" method='post'>
+    <label>
+        Имя:
+        <input name="name" type="text">
+    </label>
+    <label>
+        Город:
+        <select name="city">
+            {% for i, city in cities.iterrows() %}
+            <option value="{{ city['city_id']}}">{{city['city_name']}}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>
+        Дата рождения:
+        <input name="date" type="date">
+    </label>
+    <input value="Добавить" type="submit">
+
+</form>
+
+{% endblock content %}

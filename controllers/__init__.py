@@ -1,0 +1,8 @@
+import controllers.city_controller
+import controllers.game_controller
+import controllers.index_controller
+import controllers.player_controller
+import controllers.rank_controller
+import controllers.tour_controller
+import controllers.tournament_controller
+import controllers.tournament_player_controller

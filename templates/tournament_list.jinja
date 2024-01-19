@@ -1,0 +1,26 @@
+{% extends "base.jinja" %}
+
+{% macro tournament(name, id) %}
+
+<a class="tournament-item" href="{{url_for('tournament_page', tournament=id)}}">{{ name }}</a>
+
+{% endmacro %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/styles/tournament_list.css">
+{% endblock style %}
+
+{% block content %}
+<form action="{{url_for('tournament_list')}}">
+    <input name="search" type="text">
+</form>
+{% if tournaments.empty %}
+<p>Турниров подходящих по параметрам не существует</p>
+{% else %}
+{% for i, t in tournaments.iterrows() %}
+{{ tournament(t['tournament_name'], t['tournament_id'])}}
+{% endfor %}
+{% endif %}
+
+<a class="search" href="{{ url_for('tournament_add_get')}}">Добавить турнир</a>
+{% endblock content %}

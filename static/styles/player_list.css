@@ -1,0 +1,11 @@
+.player
+{
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    border: solid thin black;
+    width: max-content;
+    width: 20%;
+    height: 20px;
+    justify-content: space-between;
+}

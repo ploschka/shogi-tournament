@@ -1,0 +1,30 @@
+{% extends "base.jinja" %}
+
+{% macro player(name, rank, rating) %}
+
+<div class="player">
+    <div class="player-name">{{ name }}</div>
+    <div class="player-rank">{{ rank }}</div>
+    <div class="player-rating">{{ rating }}</div>
+</div>
+
+{% endmacro %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/styles/player_list.css">
+{% endblock style %}
+
+{% block content %}
+<form action="{{url_for('player_list')}}">
+    <input name="search" type="text">
+</form>
+{% if players.empty %}
+<p>Игроков подходящих по параметрам не существует</p>
+{% else %}
+{% for i, p in players.iterrows() %}
+{{ player(p['player_name'], p['rank_name'], p['rating'])}}
+{% endfor %}
+{% endif %}
+
+<a class="search" href="{{ url_for('player_add_get')}}">Добавить игрока</a>
+{% endblock content %}

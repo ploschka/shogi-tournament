@@ -1,0 +1,6 @@
+flask
+pandas
+python-dotenv
+locale
+datetime
+mysql-connector-python
