@@ -11,8 +11,17 @@ def add_tournament(name, start_date, end_date, city):
     query = f"INSERT INTO tournament (tournament_name, city_id, start_date, end_date) VALUES ('{name}', '{city}', '{start_date}', '{end_date}')"
     cur.execute(query)
 
-def search_tournaments(q):
-    return read_sql(f"SELECT * FROM tournament WHERE tournament_name LIKE '%{q}%'", conn)
+def search_tournaments(name, start_date, end_date, city):
+    citystr = ''
+    if city > 0:
+        citystr = f'AND city_id = {city}'
+    return read_sql(f"""
+                    SELECT * FROM tournament 
+                    WHERE 
+                    tournament_name LIKE '%{name}%' AND
+                    start_date >= '{start_date}' AND
+                    end_date <= '{end_date}' {citystr}
+                    """, conn)
 
 def get_one(id):
     cur = conn.cursor()

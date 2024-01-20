@@ -2,20 +2,26 @@ from flask import render_template, jsonify, request, redirect, url_for
 from app import app
 from models import tournament_model as tm
 from models import city_model as cm
-import datetime as dt
-import locale
 
 
 @app.route('/tournaments')
 def tournament_list():
-    search = request.values.get('search')
-    if search:
-        tournaments = tm.search_tournaments(search)
-    else:
-        tournaments = tm.get_tournaments()
+    name = request.values.get('name', '')
+    start_date = request.values.get('start_date', '1970-01-01')
+    end_date = request.values.get('end_date', '2106-12-31')
+    c = request.values.get('c', 0, int)
+    cities = cm.get_cities()
+
+    tournaments = tm.search_tournaments(name, start_date, end_date, c)
     html = render_template(
         'tournament_list.jinja',
-        tournaments=tournaments)
+        tournaments=tournaments,
+        name=name,
+        start_date=start_date,
+        end_date=end_date,
+        c=c,
+        cities=cities
+    )
     return html
 
 

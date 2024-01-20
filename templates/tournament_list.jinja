@@ -12,7 +12,16 @@
 
 {% block content %}
 <form action="{{url_for('tournament_list')}}">
-    <input name="search" type="text">
+    <input value="{{name}}" name="name" type="text">
+    <input value="{{start_date}}" name="start_date" type="date">
+    <input value="{{end_date}}" name="end_date" type="date">
+    <select name="c">
+            <option value="0">Не выбрано</option>
+            {% for i, city in cities.iterrows() %}
+            <option {%if city['city_id'] == c%} selected {% endif %} value="{{ city['city_id']}}">{{city['city_name']}}</option>
+            {% endfor %}
+        </select>
+    <input value="Поиск" type="submit">
 </form>
 {% if tournaments.empty %}
 <p>Турниров подходящих по параметрам не существует</p>
