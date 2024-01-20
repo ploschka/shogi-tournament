@@ -2,6 +2,9 @@ from flask import render_template, jsonify, request, redirect, url_for
 from app import app
 from models import tournament_model as tm
 from models import city_model as cm
+from models import tournament_player_model as tpm
+from models import tour_model as tom
+from models import game_model as gm
 
 
 @app.route('/tournaments')
@@ -28,12 +31,22 @@ def tournament_list():
 @app.route('/tournament/<int:tournament>')
 def tournament_page(tournament):
     t = tm.get_one(tournament)
+    l = []
+    players = tpm.get_players(tournament)
+    for i, player in players.iterrows():
+        z = []
+        for j, game in gm.get_games(tournament, player['tournament_player_id']).iterrows():
+            z.append(tpm.get_winner_number(game['winner']))
+        l.append(z)
+    g = zip(players.iterrows(), l)
     html = render_template(
         'tournament_page.jinja',
         name=t[0],
         city=t[1],
         start_date=t[2].strftime('%d %B %Y'),
-        end_date=t[3].strftime('%d %B %Y')
+        end_date=t[3].strftime('%d %B %Y'),
+        players=players,
+        g=g
     )
     return html
 
